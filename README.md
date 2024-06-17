@@ -20,7 +20,7 @@ Volg deze stappen om het project lokaal op te zetten:
 
 1. **Kloon de repository:**
     ```sh
-    git clone https://github.com/jouw-gebruikersnaam/MartijnKozijnAR.git
+    git clone https://github.com/Jaymian-lee/MKAR.git
     ```
 2. **Navigeer naar de projectmap:**
     ```sh
