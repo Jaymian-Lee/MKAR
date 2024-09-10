@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Text, View, ScrollView, Image } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { collection, getDocs } from 'firebase/firestore'; 
 import { db } from '@/firebaseConfig';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
@@ -36,11 +36,15 @@ const ReadData = () => {
       headerBackgroundColor={{ light: '#1D1B20', dark: '#353636' }}
       headerImage={<Ionicons size={310} name="home" style={styles.headerImage} />}
     >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title" style={styles.mainTitle}>MartijnKozijnAR</ThemedText>
-      </ThemedView>
+      <ThemedView style={styles.headerContent}>
+        <ThemedText type="title" style={styles.mainTitle}>Welkom bij MartijnKozijnAR</ThemedText>
+        <ThemedText style={styles.subtitle}>Ervaar het beste van kozijnen en deuren in augmented reality.</ThemedText>
 
-      <ThemedText style={styles.subtitle}>De meest innovatieve kozijnen en deuren leverancier van Nederland!</ThemedText>
+        {/* CTA button */}
+        <TouchableOpacity style={styles.ctaButton} onPress={() => console.log('CTA Clicked')}>
+          <Text style={styles.ctaText}>Ontdek meer</Text>
+        </TouchableOpacity>
+      </ThemedView>
 
       <ScrollView contentContainerStyle={styles.productsGrid}>
         {products.length > 0 ? (
@@ -93,22 +97,41 @@ const styles = StyleSheet.create({
     left: -35,
     position: 'absolute',
   },
-  titleContainer: {
-    flexDirection: 'row',
-    gap: 8,
-    marginVertical: 20,
+  headerContent: {
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#1D1B20',
+    borderRadius: 4,
+    marginBottom: 20,
   },
   mainTitle: {
     color: 'white',
     fontSize: 24,
     fontWeight: 'bold',
     fontFamily: 'Roboto',
+    textAlign: 'center',
   },
   subtitle: {
     color: 'white',
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '400',
     fontFamily: 'Roboto',
+    marginVertical: 10,
+    textAlign: 'center',
+  },
+  ctaButton: {
+    backgroundColor: '#FF6F61',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    marginTop: 20,
+  },
+  ctaText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   section: {
     padding: 16,
@@ -119,6 +142,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
+    paddingHorizontal: 10,
   },
   productCard: {
     width: '48%',
