@@ -4,8 +4,13 @@ import { StyleSheet, Switch } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { Linking } from 'react-native';
+
+
 
 export default function SettingsScreen() {
+
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
@@ -13,17 +18,17 @@ export default function SettingsScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Settings</ThemedText>
       </ThemedView>
+     {/* create simple dunction to switch theme style */}
       <ThemedView style={styles.settingItem}>
-        <ThemedText>Dark Mode</ThemedText>
-        <Switch />
+        <ThemedText>Dark mode</ThemedText>
+        <Switch
+          value={true}
+          onValueChange={() => { }}
+        />
       </ThemedView>
       <ThemedView style={styles.settingItem}>
-        <ThemedText>Notifications</ThemedText>
-        <Switch />
-      </ThemedView>
-      <ThemedView style={styles.settingItem}>
-        <ThemedText>Privacy</ThemedText>
-        <Switch />
+        <ThemedText type="link" onPress={ ()=>{ Linking.openURL('https://github.com/Jaymian-Lee/MKAR')}}>GitHub</ThemedText>
+        <ThemedText></ThemedText>
       </ThemedView>
     </ParallaxScrollView>
   );
