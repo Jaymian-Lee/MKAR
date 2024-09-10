@@ -6,7 +6,6 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
-
 } from "react-native";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
@@ -17,7 +16,12 @@ import { ExternalLink } from "@/components/ExternalLink";
 import { Link, router } from "expo-router";
 import { useEffect, useState } from "react";
 
-type Product = {};
+type Product = {
+  id: string;
+  imageUrl: string;
+  name: string;
+  description: string;
+};
 
 const ReadData = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -55,15 +59,14 @@ const ReadData = () => {
           Ervaar het beste van kozijnen en deuren in augmented reality.
         </ThemedText>
 
-        {/* CTA button */}
         <Link style={styles.ctaButton} href="/explore">
           <Text style={styles.ctaText}>Ontdek meer</Text>
         </Link>
       </ThemedView>
 
       <ScrollView contentContainerStyle={styles.productsGrid}>
-        {products.length > 0 ? (
-          products.map((product) => (
+        {products.slice(0, 4).length > 0 ? (
+          products.slice(0, 4).map((product) => (
             <TouchableOpacity
               key={product.id}
               style={styles.productCard}
@@ -77,14 +80,14 @@ const ReadData = () => {
                 {product.name}
               </ThemedText>
               <View style={styles.descriptionWrapper}>
-              <View style={styles.descriptionInner}>
-              <ThemedText style={styles.productDescription}>
-                {product.description}
-              </ThemedText>
-              </View>
-              <View style={styles.arrow}>
-                <Ionicons name="arrow-forward-outline" size={24} color="white" />
-              </View>
+                <View style={styles.descriptionInner}>
+                  <ThemedText style={styles.productDescription}>
+                    {product.description}
+                  </ThemedText>
+                </View>
+                <View style={styles.arrow}>
+                  <Ionicons name="arrow-forward-outline" size={24} color="white" />
+                </View>
               </View>
             </TouchableOpacity>
           ))
@@ -142,11 +145,6 @@ const styles = StyleSheet.create({
     left: -35,
     position: "absolute",
   },
-  titleContainer: {
-    flexDirection: "row",
-    gap: 8,
-    marginVertical: 20,
-  },
   mainTitle: {
     color: "white",
     fontSize: 24,
@@ -184,7 +182,7 @@ const styles = StyleSheet.create({
   },
   productImage: {
     width: '100%',
-    height: 100,
+    height: 102,
     borderRadius: 8,
     marginBottom: 8,
   },

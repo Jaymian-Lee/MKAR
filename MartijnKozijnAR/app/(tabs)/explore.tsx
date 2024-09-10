@@ -2,7 +2,6 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import {
   StyleSheet,
   Image,
-  Platform,
   ScrollView,
   View,
   TouchableOpacity,
@@ -79,13 +78,15 @@ const TabTwoScreen = () => {
 
 const styles = StyleSheet.create({
   section: {
+    flex: 1,
     padding: 16,
-    marginTop: 64,
+    backgroundColor: "#1d1b20",
   },
   productsGrid: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
+    marginTop: 64,
   },
   productCard: {
     width: "48%",
@@ -102,7 +103,7 @@ const styles = StyleSheet.create({
   },
   productImage: {
     width: "100%",
-    height: 100,
+    height: 115,
     borderRadius: 8,
     marginBottom: 8,
   },
