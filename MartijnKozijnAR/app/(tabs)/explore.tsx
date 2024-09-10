@@ -1,24 +1,24 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Image, Platform, ScrollView, View } from 'react-native';
-import { useEffect, useState } from 'react';
+import Ionicons from "@expo/vector-icons/Ionicons";
+import {
+  StyleSheet,
+  Image,
+  Platform,
+  ScrollView,
+  View,
+  TouchableOpacity,
+} from "react-native";
+import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebaseConfig";
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { ThemedText } from "@/components/ThemedText";
+import { useNavigation } from "@react-navigation/native";
+import { router } from "expo-router";
 
-type Product = {
-  id: string;
-  name: string;
-  description: string;
-  price?: number;
-  imageUrl: string;
-};
+type Product = {};
 
 const TabTwoScreen = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,17 +39,15 @@ const TabTwoScreen = () => {
   }, []);
 
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={<Ionicons size={310} name="compass" style={styles.headerImage} />}
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText style={styles.mainTitle}>Explore</ThemedText>
-      </ThemedView>
+    <View style={styles.section}>
       <ScrollView contentContainerStyle={styles.productsGrid}>
         {products.length > 0 ? (
           products.map((product) => (
-            <View key={product.id} style={styles.productCard}>
+            <TouchableOpacity
+              key={product.id}
+              style={styles.productCard}
+              onPress={() => router.push(`/${product.id}`)}
+            >
               <Image
                 source={{ uri: product.imageUrl }}
                 style={styles.productImage}
@@ -57,11 +55,17 @@ const TabTwoScreen = () => {
               <ThemedText style={styles.productTitle}>
                 {product.name}
               </ThemedText>
-              <ThemedText>{product.description}</ThemedText>
-              <ThemedText>
-                {product.price ? `Prijs: €${product.price}` : ""}
+              <View style={styles.descriptionWrapper}>
+              <View style={styles.descriptionInner}>
+              <ThemedText style={styles.productDescription}>
+                {product.description}
               </ThemedText>
-            </View>
+              </View>
+              <View style={styles.arrow}>
+                <Ionicons name="arrow-forward-outline" size={24} color="white" />
+              </View>
+              </View>
+            </TouchableOpacity>
           ))
         ) : (
           <ThemedText style={styles.noProductsText}>
@@ -69,39 +73,14 @@ const TabTwoScreen = () => {
           </ThemedText>
         )}
       </ScrollView>
-      <ThemedText style={styles.section}>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing" style={styles.section}>
-        <ThemedText>
-          This app has two screens: <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-      </Collapsible>
-      {/* Rest van je componenten */}
-    </ParallaxScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: "#808080",
-    bottom: -90,
-    left: -35,
-    position: "absolute",
-  },
-  titleContainer: {
-    flexDirection: "row",
-    gap: 8,
-    marginVertical: 20,
-  },
-  mainTitle: {
-    color: "white",
-    fontSize: 24,
-    fontWeight: "bold",
-    fontFamily: "Roboto",
-  },
   section: {
     padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
+    marginTop: 64,
   },
   productsGrid: {
     flexDirection: "row",
@@ -123,7 +102,7 @@ const styles = StyleSheet.create({
   },
   productImage: {
     width: "100%",
-    height: 150,
+    height: 100,
     borderRadius: 8,
     marginBottom: 8,
   },
@@ -133,6 +112,12 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 12,
     fontFamily: "Roboto",
+  },
+  productDescription: {
+    color: "white",
+    fontSize: 12,
+    fontFamily: "Roboto",
+    lineHeight: 16,
   },
   noProductsText: {
     color: "white",
@@ -161,6 +146,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#1D1B20",
     borderRadius: 16,
     marginBottom: 20,
+  },
+  descriptionWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  descriptionInner: {
+    width: "80%",
+  },
+  arrow: {
+    width: "20%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

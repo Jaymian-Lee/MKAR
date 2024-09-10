@@ -5,6 +5,7 @@ import {
   View,
   ScrollView,
   Image,
+  TouchableOpacity,
 
 } from "react-native";
 import { collection, getDocs } from "firebase/firestore";
@@ -13,7 +14,7 @@ import ParallaxScrollView from "@/components/ParallaxScrollView";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { ExternalLink } from "@/components/ExternalLink";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { useEffect, useState } from "react";
 
 type Product = {};
@@ -63,7 +64,11 @@ const ReadData = () => {
       <ScrollView contentContainerStyle={styles.productsGrid}>
         {products.length > 0 ? (
           products.map((product) => (
-            <View key={product.id} style={styles.productCard}>
+            <TouchableOpacity
+              key={product.id}
+              style={styles.productCard}
+              onPress={() => router.push(`/${product.id}`)}
+            >
               <Image
                 source={{ uri: product.imageUrl }}
                 style={styles.productImage}
@@ -71,11 +76,17 @@ const ReadData = () => {
               <ThemedText style={styles.productTitle}>
                 {product.name}
               </ThemedText>
-              <ThemedText>{product.description}</ThemedText>
-              <ThemedText>
-                {product.price ? `Prijs: €${product.price}` : ""}
+              <View style={styles.descriptionWrapper}>
+              <View style={styles.descriptionInner}>
+              <ThemedText style={styles.productDescription}>
+                {product.description}
               </ThemedText>
-            </View>
+              </View>
+              <View style={styles.arrow}>
+                <Ionicons name="arrow-forward-outline" size={24} color="white" />
+              </View>
+              </View>
+            </TouchableOpacity>
           ))
         ) : (
           <ThemedText style={styles.noProductsText}>
@@ -172,8 +183,8 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   productImage: {
-    width: "100%",
-    height: 150,
+    width: '100%',
+    height: 100,
     borderRadius: 8,
     marginBottom: 8,
   },
@@ -211,6 +222,24 @@ const styles = StyleSheet.create({
     backgroundColor: "#1D1B20",
     borderRadius: 16,
     marginBottom: 20,
+  },
+  descriptionWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+  descriptionInner: {
+    width: "80%",
+  },
+  arrow: {
+    width: "20%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  productDescription: {
+    color: "white",
+    fontSize: 12,
+    fontFamily: "Roboto",
+    lineHeight: 16,
   },
 });
 
