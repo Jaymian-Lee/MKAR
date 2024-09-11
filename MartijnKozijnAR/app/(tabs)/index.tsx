@@ -86,7 +86,11 @@ const ReadData = () => {
                   </ThemedText>
                 </View>
                 <View style={styles.arrow}>
-                  <Ionicons name="arrow-forward-outline" size={24} color="white" />
+                  <Ionicons
+                    name="arrow-forward-outline"
+                    size={24}
+                    color="white"
+                  />
                 </View>
               </View>
             </TouchableOpacity>
@@ -103,24 +107,6 @@ const ReadData = () => {
         <ThemedText>- Indrukwekkende AR-ervaringen</ThemedText>
         <ThemedText>- Gebruiksvriendelijke interface</ThemedText>
         <ThemedText>- Ondersteuning voor meerdere platforms</ThemedText>
-      </ThemedView>
-
-      <ThemedView style={styles.section}>
-        <ThemedText>Aan de slag</ThemedText>
-        <ThemedText>
-          Volg de handleidingen en tutorials om de app op te zetten en te
-          gebruiken.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/get-started/installation/">
-          <ThemedText type="link" style={styles.link}>
-            Installatiegids
-          </ThemedText>
-        </ExternalLink>
-        <ExternalLink href="https://docs.expo.dev/tutorial/">
-          <ThemedText type="link" style={styles.link}>
-            Tutorials
-          </ThemedText>
-        </ExternalLink>
       </ThemedView>
 
       <ThemedView style={styles.section}>
@@ -181,7 +167,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   productImage: {
-    width: '100%',
+    width: "100%",
     height: 102,
     borderRadius: 8,
     marginBottom: 8,
