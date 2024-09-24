@@ -44,15 +44,23 @@ const ProductDetail = () => {
             <Text style={styles.productDescription}>{product.description}</Text>
           </View>
           <View style={styles.productInteraction}>
-            <Pressable 
-              style={styles.productButton} 
+            <Pressable
+              style={styles.productButton}
               onPress={() => router.push(product.url)} // Gebruik router.push() om te navigeren
             >
               <Text style={styles.buttonText}>
                 <Ionicons style={styles.iconStyle} name="link" />
               </Text>
             </Pressable>
-            <Pressable style={styles.productButton}>
+            <Pressable
+              style={styles.productButton}
+              onPress={() => {
+                router.push({
+                  pathname: "/ar-view", // De naam van je AR-pagina
+                  params: { id: id }, // Geef de ID van het product door
+                });
+              }}
+            >
               <Text style={styles.buttonText}>
                 <Ionicons style={styles.iconStyle} name="cube" />
               </Text>
