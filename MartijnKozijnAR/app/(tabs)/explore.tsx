@@ -36,7 +36,7 @@ const TabTwoScreen = () => {
 
     fetchData();
   }, []);
-
+ 
   return (
     <View style={styles.section}>
       <ScrollView contentContainerStyle={styles.productsGrid}>
